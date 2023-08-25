@@ -1,0 +1,5 @@
+FROM ubuntu
+WORKDIR /app
+COPY hello.sh /app
+ENV NAME="Subhi"
+CMD ["bash", "hello.sh"]

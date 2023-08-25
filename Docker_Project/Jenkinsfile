@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+    environment {
+        DOCKER_NAME = 'docker_project'
+    }
+    stages {
+        stage('1-Biulding Docker Image') {
+            steps {
+                echo "Start of stage Image Build..."
+                echo "Building Image....."
+                sh "chmod 777 Dockerfile"
+                sh "docker build -t ${DOCKER_NAME} ."
+                echo "End of stage Image Build" 
+            }
+        }
+        stage('2-Container') {
+            steps {
+                echo "Start of stage Container..."
+                echo "Checking for Conflecting Container Names"
+                sh ''' docker ps -a | grep ${DOCKER_NAME} && docker rm -f ${DOCKER_NAME} && echo "Removed Container" || echo "No Conflecting Containers Detected" '''
+                echo "Running New Container..."
+                sh "docker run -d --name ${DOCKER_NAME} ${DOCKER_NAME}"
+                sh "sleep 20"
+                echo "End of stage Container" 
+            }
+        }
+        stage('3-Finishing') {
+            steps {
+                echo "Start of the Finish..."
+                echo "Checking Container Status..."
+                sh ''' docker ps | grep ${DOCKER_NAME} && docker kill ${DOCKER_NAME} && echo "Test failed"  || echo "Test run success" '''
+                echo "Finished..."
+            }
+        }
+    }
+}

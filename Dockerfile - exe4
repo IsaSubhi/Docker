@@ -1,0 +1,4 @@
+FROM ubuntu
+WORKDIR /app
+COPY hello.sh /app
+CMD ["bash", "hello.sh"]

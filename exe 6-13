@@ -1,0 +1,11 @@
+6: docker run --rm python python -c "print('Hello, World!')"
+7: docker run -v ./app:/usr/share/nginx/html nginx
+8: docker run --rm -it -e NAME="Subhi" ubuntu
+9: docker rename old_name new_name
+10: docker cp file.txt container_id:/path/inside/container
+11: docker volume create volume_name
+        docker run -v volume_name:/path/inside/container image_name 
+12: docker run --rm ubuntu echo "Hello, World!"
+13: docker run --rm -it ubuntu 
+        apt update
+

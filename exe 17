@@ -1,0 +1,1 @@
+docker run -v ~/Desktop/docker/app:/usr/share/nginx/html -p 85:80 -d nginx
